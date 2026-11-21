@@ -31,6 +31,24 @@ services:
     networks:
       - unvirtless
 
+  postgres:
+    image: postgres:19-trixie
+    container_name: unvirtless-postgres-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-unvirtless}
+      POSTGRES_USER: ${DB_USERNAME:-unvirtless}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-hellopassword}
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - unvirtless
+
 networks:
   unvirtless:
     driver: bridge
@@ -39,3 +57,4 @@ volumes:
   backend_vendor:
   caddy_data:
   caddy_config:
+  postgres_data:
