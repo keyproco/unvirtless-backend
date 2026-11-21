@@ -29,3 +29,10 @@ Homestead.json
 .env.production
 .phpactor.json
 auth.json
+
+.DS_Store
+.idea
+.vscode
+
+.cursorignore
+.cursorrules

@@ -1,0 +1,10 @@
+
+{
+    local_certs
+}
+
+api.unvirtless.local {
+    root * /var/www/public
+    php_fastcgi backend:9000
+    file_server
+}
